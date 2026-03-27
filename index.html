@@ -662,9 +662,78 @@
             margin-top: 0.5rem;
         }
 
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: var(--text-light);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
         /* Reponsive */
         @media (max-width: 992px) {
-            .navbar__links { display: none; }
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                padding: 1rem 0;
+            }
+
+            .navbar__links {
+                position: absolute;
+                top: calc(100% + 10px);
+                left: 5%;
+                width: 90%;
+                background-color: rgba(14, 20, 10, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                padding: 2.5rem 0;
+                border: 1px solid rgba(156, 255, 0, 0.15);
+                border-radius: 20px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px);
+                transition: var(--transition);
+                z-index: 999;
+                display: flex;
+            }
+
+            .navbar__links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .navbar__btn {
+                padding: 1rem 2rem;
+                font-size: 0.9rem;
+            }
             
             .stats-box {
                 flex-direction: column;
@@ -706,6 +775,11 @@
                 <a href="#home" class="navbar__logo">
                     <img src="assets/logo_intencional.png" alt="Logo Intencional">
                 </a>
+                <button class="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
                 <ul class="navbar__links">
                     <li><a href="#home" class="navbar__link">Home</a></li>
                     <li><a href="#clientes" class="navbar__link">Clientes</a></li>
@@ -890,6 +964,29 @@
             <p class="footer__copy">Copyright - Todos os direitos reservados - Marcos Antonio</p>
         </div>
     </footer>
+
+    <script>
+        // Menu Mobile Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navbarLinks = document.querySelector('.navbar__links');
+            const navLinks = document.querySelectorAll('.navbar__link, .navbar__btn');
+
+            if (hamburger && navbarLinks) {
+                hamburger.addEventListener('click', () => {
+                    hamburger.classList.toggle('active');
+                    navbarLinks.classList.toggle('active');
+                });
+
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        hamburger.classList.remove('active');
+                        navbarLinks.classList.remove('active');
+                    });
+                });
+            }
+        });
+    </script>
 
     <!-- Mouse / Cursor Customizado -->
     <script>
