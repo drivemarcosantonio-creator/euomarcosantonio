@@ -44,44 +44,11 @@
 
         /* Custom Cursor */
         @media (min-width: 993px) {
-            * {
-                cursor: none !important;
+            body, html {
+                cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24'%3E%3Cpath fill='%239cff00' stroke='%23050505' stroke-width='1.5' stroke-linejoin='round' d='M3 2 L3 20 L8 15 L12 23 L16 21 L12 13 L19 13 Z'/%3E%3C/svg%3E") 3 2, auto;
             }
-            .custom-cursor {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 8px;
-                height: 8px;
-                background-color: #9cff00;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: width 0.2s, height 0.2s, background-color 0.2s;
-            }
-            .custom-cursor-follower {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 36px;
-                height: 36px;
-                border: 1px solid rgba(156, 255, 0, 0.4);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9998;
-                transform: translate(-50%, -50%);
-                transition: opacity 0.3s;
-            }
-            .custom-cursor.hover {
-                width: 50px;
-                height: 50px;
-                background-color: rgba(156, 255, 0, 0.1);
-                border: 1px solid #9cff00;
-                backdrop-filter: blur(2px);
-            }
-            .custom-cursor-follower.hover {
-                opacity: 0;
+            a, button, .swiper-button-next, .swiper-button-prev, .hamburger, .stat, .feature-card {
+                cursor: pointer;
             }
         }
 
@@ -989,52 +956,7 @@
         });
     </script>
 
-    <!-- Mouse / Cursor Customizado -->
-    <script>
-        if (window.innerWidth > 992) {
-            document.addEventListener('DOMContentLoaded', () => {
-                const cursor = document.createElement('div');
-                cursor.classList.add('custom-cursor');
-                
-                const follower = document.createElement('div');
-                follower.classList.add('custom-cursor-follower');
-                
-                document.body.appendChild(cursor);
-                document.body.appendChild(follower);
-                
-                let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-                let followerX = window.innerWidth / 2, followerY = window.innerHeight / 2;
-                
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    cursor.style.left = mouseX + 'px';
-                    cursor.style.top = mouseY + 'px';
-                });
-                
-                function animate() {
-                    followerX += (mouseX - followerX) * 0.15;
-                    followerY += (mouseY - followerY) * 0.15;
-                    follower.style.left = followerX + 'px';
-                    follower.style.top = followerY + 'px';
-                    requestAnimationFrame(animate);
-                }
-                animate();
-                
-                const hoverElements = document.querySelectorAll('a, button, .stat, .feature-card');
-                hoverElements.forEach(el => {
-                    el.addEventListener('mouseenter', () => {
-                        cursor.classList.add('hover');
-                        follower.classList.add('hover');
-                    });
-                    el.addEventListener('mouseleave', () => {
-                        cursor.classList.remove('hover');
-                        follower.classList.remove('hover');
-                    });
-                });
-            });
-        }
-    </script>
+    <!-- Mouse / Cursor Customizado Removido (Agora apenas CSS) -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Init Swiper
