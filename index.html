@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marcos Antônio</title>
     <link rel="icon" href="assets/logo_intencional.png" type="image/png">
+    
+    <!-- Preload para LCP -->
+    <link rel="preload" as="image" href="assets/hero_image.jpg">
+    <link rel="preload" as="image" href="assets/logo_intencional.png">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -251,6 +256,7 @@
             width: 100%;
             padding-top: 2rem;
             padding-bottom: 4rem;
+            min-height: 500px; /* Evita CLS enquanto o JS carrega */
         }
 
         .portfolio-swiper .swiper-slide {
@@ -740,8 +746,8 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar__inner">
-                <a href="#home" class="navbar__logo">
-                    <img src="assets/logo_intencional.png" alt="Logo Intencional">
+                <a href="#home" class="navbar__logo" style="min-width: 150px;">
+                    <img src="assets/logo_intencional.png" alt="Logo Intencional" fetchpriority="high">
                 </a>
                 <button class="hamburger" aria-label="Menu">
                     <span></span>
@@ -772,8 +778,8 @@
                 <a href="https://wa.me/5571987057566" target="_blank" rel="noopener noreferrer" class="btn btn--glow">Quero meu diagnóstico gratuito</a>
             </div>
             <div class="hero__image-wrapper">
-                <div class="hero__image-container">
-                    <img src="assets/hero_image.jpg" alt="Marcos Antônio" class="hero__image">
+                <div class="hero__image-container" style="min-height: 400px;">
+                    <img src="assets/hero_image.jpg" alt="Marcos Antônio" class="hero__image" fetchpriority="high" decoding="sync">
                 </div>
             </div>
         </div>
@@ -815,7 +821,7 @@
     <section class="section about bg-sur" id="sobre">
         <div class="container about__grid">
             <div class="about__image-wrapper">
-                <img src="assets/marcos_antonio_absoluto.jpg" alt="Marcos Antonio" class="about__image">
+                <img src="assets/marcos_antonio_absoluto.jpg" alt="Marcos Antonio" class="about__image" loading="lazy">
             </div>
             <div class="about__content">
                 <h2 class="about__name">Quem é Marcos Antonio</h2>
@@ -908,8 +914,8 @@
     <!-- FOOTER -->
     <footer class="footer">
         <div class="container footer__inner">
-            <a href="#home" class="footer__logo">
-                <img src="assets/logo_intencional.png" alt="Logo Intencional">
+            <a href="#home" class="footer__logo" style="min-width: 100px;">
+                <img src="assets/logo_intencional.png" alt="Logo Intencional" loading="lazy">
             </a>
             <div class="social-links">
                 <a href="https://www.instagram.com/euomarcosantonio" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
