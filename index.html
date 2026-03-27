@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcos Antônio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        :root {
+            --bg-main: #050505;
+            --bg-sur: #0e0e0e;
+            --neon: #9cff00;
+            --neon-glow: rgba(156, 255, 0, 0.25);
+            --neon-glow-strong: rgba(156, 255, 0, 0.5);
+            --text-light: #Fcfcfc;
+            --text-muted: #999999;
+            --border: #222222;
+            --font-main: 'Inter', sans-serif;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-main);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        @media (min-width: 993px) {
+            * {
+                cursor: none !important;
+            }
+            .custom-cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 8px;
+                height: 8px;
+                background-color: #9cff00;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background-color 0.2s;
+            }
+            .custom-cursor-follower {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 36px;
+                height: 36px;
+                border: 1px solid rgba(156, 255, 0, 0.4);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9998;
+                transform: translate(-50%, -50%);
+                transition: opacity 0.3s;
+            }
+            .custom-cursor.hover {
+                width: 50px;
+                height: 50px;
+                background-color: rgba(156, 255, 0, 0.1);
+                border: 1px solid #9cff00;
+                backdrop-filter: blur(2px);
+            }
+            .custom-cursor-follower.hover {
+                opacity: 0;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        ul { list-style: none; }
+        a { text-decoration: none; }
+
+        .highlight {
+            color: var(--neon);
+        }
+
+        h1, h2, h3 { line-height: 1.1; }
+        
+        .badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.25rem 2.5rem;
+            background-color: transparent;
+            color: var(--text-light);
+            border: 1px solid var(--border);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: var(--bg-sur);
+            border-color: #444;
+        }
+
+        .btn--glow {
+            background-color: var(--neon);
+            color: #000;
+            border: none;
+            box-shadow: 0 0 20px var(--neon-glow);
+        }
+
+        .btn--glow:hover {
+            background-color: #00e65c;
+            box-shadow: 0 0 40px var(--neon-glow-strong);
+            color: #000;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            padding: 8rem 0;
+            scroll-margin-top: 100px;
+        }
+
+        .bg-sur {
+            background-color: var(--bg-sur);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 1.5rem 0;
+            transition: var(--transition);
+        }
+
+        .navbar__inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(14, 20, 10, 0.8);
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            border: 1px solid rgba(156, 255, 0, 0.15);
+        }
+
+        .navbar__logo {
+            display: flex;
+            align-items: center;
+            height: 60px;
+        }
+
+        .navbar__logo img {
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .navbar__links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .navbar__link {
+            color: #d1d1d1;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .navbar__link:hover {
+            color: #fff;
+        }
+
+        .navbar__link:active {
+            transform: scale(0.95);
+        }
+
+        .navbar__btn {
+            background-color: #fff;
+            color: #000;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(156, 255, 0, 0.4);
+            transition: var(--transition);
+        }
+
+        .navbar__btn:hover {
+            box-shadow: 0 0 25px rgba(156, 255, 0, 0.8);
+            transform: scale(1.05);
+        }
+
+        .navbar__btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 10px rgba(156, 255, 0, 0.5);
+        }
+
+        /* Animated Background for Portfolio */
+        .portfolio {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .portfolio::before,
+        .portfolio::after {
+            content: '';
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            max-width: 600px;
+            max-height: 600px;
+            border-radius: 50%;
+            background: var(--neon);
+            filter: blur(120px);
+            opacity: 0.12;
+            z-index: -1;
+            animation: floatGlow 20s infinite ease-in-out alternate;
+            pointer-events: none;
+        }
+
+        .portfolio::before {
+            top: -20%;
+            left: -10%;
+        }
+
+        .portfolio::after {
+            bottom: -20%;
+            right: -10%;
+            animation-duration: 30s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5vw, 10vh) scale(1.2); }
+            66% { transform: translate(-5vw, 5vh) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+        /* Portfolio Swiper */
+        .portfolio-swiper {
+            width: 100%;
+            padding-top: 2rem;
+            padding-bottom: 4rem;
+        }
+
+        .portfolio-swiper .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 340px;
+            height: 500px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            position: relative;
+        }
+
+        .portfolio-swiper .swiper-slide::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, rgba(5,5,5,1) 0%, transparent 100%);
+            border-radius: 12px;
+        }
+
+        .portfolio-swiper .swiper-slide-active {
+            border: 1px solid var(--neon);
+            box-shadow: 0 0 50px rgba(156, 255, 0, 0.15);
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--text-light) !important;
+            background: rgba(14, 20, 10, 0.8);
+            border: 1px solid var(--border);
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            border-color: var(--neon);
+            color: var(--neon) !important;
+        }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 1.25rem !important;
+            font-weight: 900;
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--text-muted) !important;
+            opacity: 1 !important;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--neon) !important;
+            box-shadow: 0 0 10px var(--neon);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-swiper .swiper-slide {
+                width: 260px;
+                height: 400px;
+            }
+        }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            padding-top: 10rem;
+            padding-bottom: 10rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at right center, var(--neon-glow) 0%, transparent 50%);
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .hero__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .hero__title {
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            margin-bottom: 2rem;
+        }
+
+        .hero__subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 90%;
+            font-weight: 400;
+        }
+
+        .hero__image-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .hero__image-container::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 90%;
+            background: radial-gradient(circle, rgba(156, 255, 0, 0.2) 0%, transparent 65%);
+            z-index: -1;
+            filter: blur(50px);
+            pointer-events: none;
+        }
+
+        .hero__image {
+            width: 100%;
+            max-width: 500px;
+            object-fit: cover;
+            /* Fade no final da imagem para remover corte seco */
+            -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+            /* Modo lighten anula as bordas pretas escuras do JPG sobre o fundo do site */
+            mix-blend-mode: lighten;
+        }
+
+        /* Sobre (Quem É) */
+        .about__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .about__name {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 2rem;
+        }
+
+        .about__text {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            max-width: 90%;
+        }
+
+        .stats-box {
+            display: flex;
+            background-color: transparent;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-top: 4rem;
+            box-shadow: none;
+            overflow: hidden;
+        }
+
+        .stat {
+            flex: 1;
+            text-align: center;
+            padding: 3rem 2rem;
+            border-right: 1px solid #333;
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .stat:hover {
+            background-color: rgba(156, 255, 0, 0.05);
+            /* Move o bloco para cima suavemente */
+            transform: translateY(-8px);
+        }
+
+        .stat:last-child {
+            border-right: none;
+        }
+
+        .stat__number {
+            display: inline-block;
+            font-size: clamp(3rem, 4vw, 4.5rem);
+            font-weight: 500;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            letter-spacing: -2px;
+            text-shadow: none;
+            transition: color 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), text-shadow 0.4s ease;
+        }
+
+        .stat:hover .stat__number {
+            color: var(--neon);
+            text-shadow: 0 0 25px rgba(156, 255, 0, 0.4);
+            transform: scale(1.1);
+        }
+
+        .stat__text {
+            display: block;
+            font-size: 1.125rem;
+            color: var(--neon);
+            font-weight: 400;
+            font-style: italic;
+            text-transform: none;
+            letter-spacing: normal;
+            line-height: 1.4;
+        }
+
+        .about__image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 40px var(--neon-glow);
+            border: 1px solid var(--border);
+            object-fit: contain;
+        }
+
+        /* Features (Conteúdo Intencional) */
+        .features {
+            text-align: center;
+        }
+
+        .features__main-title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-sur);
+            border: 1px solid var(--border);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .feature-card:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 20px rgba(156, 255, 0, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .feature-card__icon {
+            width: 40px;
+            height: 40px;
+            color: var(--neon);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .feature-card__title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .feature-card__text {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Final */
+        .cta-final {
+            text-align: center;
+            padding: 10rem 0;
+            position: relative;
+        }
+        
+        .cta-final::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, var(--neon-glow) 0%, transparent 60%);
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .cta-final__title {
+            font-size: clamp(2.5rem, 4vw, 4rem);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-final__subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer / Redes Sociais */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+            background-color: var(--bg-sur);
+        }
+
+        .footer__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--neon);
+        }
+
+        .social-link:hover {
+            color: var(--neon);
+        }
+
+        .footer__logo {
+            height: 90px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer__logo img {
+            height: 100%;
+            object-fit: contain;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer__logo:hover img {
+            opacity: 1;
+        }
+
+        .footer__copy {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* Reponsive */
+        @media (max-width: 992px) {
+            .navbar__links { display: none; }
+            
+            .stats-box {
+                flex-direction: column;
+                margin-top: 2rem;
+            }
+            .stat {
+                border-right: none;
+                border-bottom: 1px solid #333;
+                padding: 2.5rem 1.5rem;
+            }
+            .stat:last-child {
+                border-bottom: none;
+            }
+
+            .hero__grid, .about__grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .hero { padding-top: 6rem; padding-bottom: 6rem; }
+            .hero__content, .about__content { text-align: center; }
+            .hero__subtitle, .about__text { margin-left: auto; margin-right: auto; }
+            
+            .about__grid {
+                display: flex;
+                flex-direction: column-reverse;
+            }
+            
+            .cta-final { padding: 6rem 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar__inner">
+                <a href="#home" class="navbar__logo">
+                    <img src="assets/logo_intencional.png" alt="Logo Intencional">
+                </a>
+                <ul class="navbar__links">
+                    <li><a href="#home" class="navbar__link">Home</a></li>
+                    <li><a href="#clientes" class="navbar__link">Clientes</a></li>
+                    <li><a href="#sobre" class="navbar__link">Sobre</a></li>
+                    <li><a href="#metodo" class="navbar__link">O Método</a></li>
+                    <li><a href="#checkout" class="navbar__btn">Diagnóstico</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO 1 — HERO -->
+    <header class="section hero" id="home">
+        <div class="container hero__grid">
+            <div class="hero__content">
+                <h1 class="hero__title">
+                    Conteúdo que constrói negócio. <span class="highlight">Sem espetáculo.</span>
+                </h1>
+                <p class="hero__subtitle">
+                    Eu ajudo empreendedores a criar conteúdo com intenção real. Simples, humano e constante.
+                </p>
+                <a href="https://wa.me/5571987057566" target="_blank" rel="noopener noreferrer" class="btn btn--glow">Quero meu diagnóstico gratuito</a>
+            </div>
+            <div class="hero__image-wrapper">
+                <div class="hero__image-container">
+                    <img src="assets/hero_image.jpg" alt="Marcos Antônio" class="hero__image">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEÇÃO PORTFÓLIO (CLIENTES) -->
+    <section class="section portfolio" id="clientes">
+        <div class="container" style="position: relative; z-index: 2;">
+            <h2 class="features__main-title" style="margin-bottom: 1rem; text-align: center;">
+                Eles cansaram do espetáculo.<br> Hoje criam com <span class="highlight">intenção.</span>
+            </h2>
+            <p class="hero__subtitle" style="text-align: center; margin-bottom: 4rem; margin-inline: auto;">
+                Conteúdo simples, constante e com resultado real. Sem precisar virar outra pessoa.
+            </p>
+            
+            <!-- Swiper -->
+            <div class="swiper portfolio-swiper">
+                <div class="swiper-wrapper">
+                    <!-- Clientes reais -->
+                    <a href="https://www.instagram.com/jadeveloso/" target="_blank" rel="noopener noreferrer" class="swiper-slide" style="background-image:url('assets/cliente_jade.png'); display: block; cursor: none;"></a>
+                    <a href="https://www.instagram.com/eu.rhuancavalcante/" target="_blank" rel="noopener noreferrer" class="swiper-slide" style="background-image:url('assets/cliente_rhuan.jpg'); display: block; cursor: none;"></a>
+                    <a href="https://www.instagram.com/pasteldq/" target="_blank" rel="noopener noreferrer" class="swiper-slide" style="background-image:url('assets/cliente_pastel.jpg'); display: block; cursor: none;"></a>
+                    <a href="https://www.instagram.com/danilooliveira.adv/" target="_blank" rel="noopener noreferrer" class="swiper-slide" style="background-image:url('assets/cliente_danilo.jpg'); display: block; cursor: none;"></a>
+                </div>
+                <!-- Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Navigation -->
+                <div class="swiper-button-next" style="right: 10px;"></div>
+                <div class="swiper-button-prev" style="left: 10px;"></div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 4rem;">
+                 <a href="#checkout" class="btn btn--glow" style="padding: 1.25rem 3rem; font-size: 1rem;">Quero ser o próximo case</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2 — QUEM É MARCOS ANTONIO -->
+    <section class="section about bg-sur" id="sobre">
+        <div class="container about__grid">
+            <div class="about__image-wrapper">
+                <img src="assets/marcos_antonio_absoluto.jpg" alt="Marcos Antonio" class="about__image">
+            </div>
+            <div class="about__content">
+                <h2 class="about__name">Quem é Marcos Antonio</h2>
+                <p class="about__text">
+                    Desde 2017 na produção audiovisual. Desde 2019 vivendo exclusivamente de conteúdo.
+                </p>
+                <p class="about__text">
+                    Trabalhei em grandes eventos, cobri shows, e no marketing digital participei de projetos que juntos passaram de 150 milhões em faturamento.
+                </p>
+                <p class="about__text">
+                    Vi o jogo por dentro. O que funciona. O que é palco. E o que quebra gente boa no meio do caminho.
+                </p>
+                <p class="about__text">
+                    Hoje trabalho com empreendedores que querem aparecer do jeito certo. Sem virar outra pessoa. Sem depender de hack ou tendência.
+                </p>
+                <p class="about__text" style="color: var(--text-light); font-weight: 500; margin-top: 2rem;">
+                    Conteúdo que cabe na vida real e gera resultado de verdade.
+                </p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="stats-box">
+                <div class="stat">
+                    <span class="stat__number">+100</span>
+                    <span class="stat__text">projetos executados no digital</span>
+                </div>
+                <div class="stat">
+                    <span class="stat__number">+150M</span>
+                    <span class="stat__text">em faturamento gerado nos projetos que participei</span>
+                </div>
+                <div class="stat">
+                    <span class="stat__number">8 anos</span>
+                    <span class="stat__text">criando e vivendo de conteúdo</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3 — O QUE É CONTEÚDO INTENCIONAL -->
+    <section class="section features" id="metodo">
+        <div class="container">
+            <h2 class="features__main-title">O que é conteúdo <span class="highlight">intencional</span></h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                        <path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                    </svg>
+                    <h3 class="feature-card__title">Clareza antes de frequência</h3>
+                    <p class="feature-card__text">
+                        Antes de pensar em formato ou algoritmo, você precisa saber exatamente o que quer comunicar. Conteúdo sem mensagem só ocupa espaço.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                    </svg>
+                    <h3 class="feature-card__title">Constância sem pressão</h3>
+                    <p class="feature-card__text">
+                        Consistência não é postar todo dia. É não sumir. Aparecer com regularidade, no seu ritmo, constrói relação antes de construir venda.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <svg class="feature-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                    </svg>
+                    <h3 class="feature-card__title">Autoridade pelo que é real</h3>
+                    <p class="feature-card__text">
+                        Resultado não vem de performance. Vem de posicionamento claro, cases reais e conteúdo que prova o que você faz.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4 — CTA FINAL -->
+    <section class="section cta-final bg-sur">
+        <div class="container">
+            <h2 class="cta-final__title">
+                Se você acredita que conteúdo constrói negócio, a gente fala a mesma língua.
+            </h2>
+            <p class="cta-final__subtitle">
+                O diagnóstico é gratuito. Em 30 minutos você sai com clareza sobre o que está travando o seu conteúdo e o que fazer a partir de agora.
+            </p>
+            <a href="https://wa.me/5571987057566" target="_blank" rel="noopener noreferrer" class="btn btn--glow">Agendar meu diagnóstico gratuito</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer__inner">
+            <a href="#home" class="footer__logo">
+                <img src="assets/logo_intencional.png" alt="Logo Intencional">
+            </a>
+            <div class="social-links">
+                <a href="https://www.instagram.com/euomarcosantonio" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    Instagram
+                </a>
+                <a href="https://linkedin.com/euomarcosantonio" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zM7.119 20.452H3.554V9h3.565v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://www.youtube.com/@marquinhoytb" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    YouTube
+                </a>
+                <a href="https://wa.me/5571987057566" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24"><path d="M12.031 0C5.385 0 0 5.383 0 12.029c0 2.124.551 4.192 1.597 6.01L.069 23.633l5.736-1.505C7.575 23.084 9.771 23.633 12.03 23.633 18.675 23.633 24 18.25 24 11.605 24 5.383 18.675 0 12.031 0zm0 21.644c-1.785 0-3.53-.48-5.064-1.391l-.363-.217-3.763.986.999-3.668-.238-.378C2.564 15.42 2.016 13.568 2.016 11.605 2.016 6.075 6.505 1.585 12.031 1.585c5.526 0 10.015 4.49 10.015 10.02 0 5.53-4.489 10.039-10.015 10.039zm5.498-7.513c-.301-.151-1.784-.881-2.062-.981-.278-.101-.482-.151-.684.151-.202.302-.782.981-.958 1.182-.176.202-.353.227-.654.076-1.424-.716-2.583-1.637-3.483-2.658-.337-.384.281-.351.865-1.52.076-.151.038-.278-.019-.429-.057-.151-.684-1.648-.937-2.257-.247-.591-.497-.508-.684-.518-.176-.008-.378-.01-.58-.01-.202 0-.529.076-.806.378-.278.302-1.06 1.035-1.06 2.523 0 1.488 1.085 2.925 1.236 3.126.151.202 2.128 3.251 5.156 4.555 2.082.898 2.827.971 3.82.82.597-.091 1.784-.73 2.036-1.436.252-.705.252-1.309.176-1.436-.075-.126-.277-.202-.579-.353z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+            <p class="footer__copy">Copyright - Todos os direitos reservados - Marcos Antonio</p>
+        </div>
+    </footer>
+
+    <!-- Mouse / Cursor Customizado -->
+    <script>
+        if (window.innerWidth > 992) {
+            document.addEventListener('DOMContentLoaded', () => {
+                const cursor = document.createElement('div');
+                cursor.classList.add('custom-cursor');
+                
+                const follower = document.createElement('div');
+                follower.classList.add('custom-cursor-follower');
+                
+                document.body.appendChild(cursor);
+                document.body.appendChild(follower);
+                
+                let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+                let followerX = window.innerWidth / 2, followerY = window.innerHeight / 2;
+                
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    cursor.style.left = mouseX + 'px';
+                    cursor.style.top = mouseY + 'px';
+                });
+                
+                function animate() {
+                    followerX += (mouseX - followerX) * 0.15;
+                    followerY += (mouseY - followerY) * 0.15;
+                    follower.style.left = followerX + 'px';
+                    follower.style.top = followerY + 'px';
+                    requestAnimationFrame(animate);
+                }
+                animate();
+                
+                const hoverElements = document.querySelectorAll('a, button, .stat, .feature-card');
+                hoverElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.classList.add('hover');
+                        follower.classList.add('hover');
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursor.classList.remove('hover');
+                        follower.classList.remove('hover');
+                    });
+                });
+            });
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+        // Init Swiper
+        const swiper = new Swiper('.portfolio-swiper', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            coverflowEffect: {
+                rotate: 25,
+                stretch: 0,
+                depth: 300,
+                modifier: 1,
+                slideShadows: true,
+            },
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            }
+        });
+    </script>
+</body>
+</html>
